@@ -103,6 +103,12 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 
 ```{r}
 
+# using indexing
+print(player_info[[2]][[4]])
+
+# using names
+print(player_info$LJ$points)
+
 ```
 
 
@@ -113,6 +119,17 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
+
+# using naming to add "height" for each player
+player_info$MJ$height <- 78
+player_info$LJ$height <- 81
+player_info$KB$height <- 78
+player_info$KA$height <- 86
+player_info$SO$height <- 85
+
+
+print(player_info)
+# player_info <- append(player_info$MJ, ''height' = 78')
 
 ```
 
@@ -133,6 +150,20 @@ Note: this must still run correctly even if the values were to change or if anot
 
 ```{r}
 
+points_per_game <- list()
+
+# Use for loop for each player
+for (i in names(player_info)){
+  # access each player's list first
+  player <- player_info[[i]]
+  # then find the player's points and games played
+  player_ppg <- player$points/player$games_played
+  # add each player's points per game to the actual list
+  points_per_game[[i]] <- player_ppg
+}
+
+print(points_per_game)
+
 ```
 
 
@@ -143,6 +174,10 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
+
+# use sapply for vectors
+rounded_ppg <- sapply(points_per_game, function(x) round(x, 2))
+print(rounded_ppg)
 
 ```
 
