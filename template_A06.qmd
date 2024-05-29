@@ -200,6 +200,22 @@ Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a r
 
 ```{r}
 
+# create a rounding function to use later
+round_function = function(x){
+  if (x>=10 && x<=99){
+    # round to tens
+    round(x, -1)
+  } else if(x>100 && x<=999){
+    # round to hundreds
+    round(x, -2)
+  } else if (x>1000 && x<=9999){
+    # round to thousands
+    round(x, -3)
+  }
+}
+
+# apply previous rounding function to each value
+apply(mat_rand, 1:2, round_function)
 ```
 
 
