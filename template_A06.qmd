@@ -238,6 +238,7 @@ max_temps <- read_tsv("state_max_temps.tsv") |>
 Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
 
 ```{r}
+# use [, 3:14] to apply to every row from column 3 to 14
 mean_per_month <- apply(max_temps[, 3:14], 2, mean)
 
 ```
@@ -254,6 +255,7 @@ Create three new data frames by slicing the data by state.
 No need to print any output here.
 
 ```{r}
+# index state from max_temps
 CO_temp <- max_temps[max_temps$state == "CO",]
 OH_temp <- max_temps[max_temps$state == "OH",]
 VA_temp <- max_temps[max_temps$state == "VA",]
@@ -282,6 +284,7 @@ median_annual_temp <- apply(CO_temp[,3:14], 1, median)
 max_temp <- max(median_annual_temp)
 min_temp <- min(median_annual_temp)
 
+# use which.max to find the year, then index it from CO_temp
 max_year <- CO_temp$year[which.max(median_annual_temp)]
 min_year <- CO_temp$year[which.min(median_annual_temp)]
 
@@ -300,7 +303,18 @@ Example: The number 312 would return 6 (3 + 1 + 2)
 Run your function with 935068.
 
 ```{r}
+sum_digits <- function(number){
+  # checks if number is 0, returning 0 if so
+  if(number == 0){
+    return(0)
+  }
+  # accounts for the last digit
+  last_digit = number %% 10
+  remaining_digit = number %/% 10
+  # recursive function continues to run through remaining digits
+  return(last_digit + sum_digits(remaining_digit))
+}
 
-
+sum_digits(935068)
 ```
 
